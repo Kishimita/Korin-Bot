@@ -67,7 +67,8 @@ async def study_break_reminder():
     channel =  bot.get_channel(CHANNEL_ID)
     await channel.send(f"**Take a well deserved break!** You've been studying for {MAX_SESSION_IN_MINS} minutes.")
 
-@bot.command(name='startwork', aliases=['starting working', 'start work', 'beginning work', 'work begins', 'work started'],
+start_work_aliases = ['starting working', 'start work', 'beginning work', 'work begins', 'work started']
+@bot.command(name='startwork', aliases=start_work_aliases,
              help="Starts to log a work session.")
 async def startwork(ctx):
     if worksesh.is_active:
@@ -125,7 +126,7 @@ async def endstudying(ctx):
 #stores list of characters and info from kami.py file
 list = get_list()
 
-@bot.command(name='getrandomcharacter', aliases=['random character', "rnd character", 'rndcharacter', 'random'],
+@bot.command(name='getrandomcharacter', aliases=['rnd character', 'random'],
              help="Displays a random DB,DBZ, and DBS character with its description.")
 async def getrandomcharacter(ctx):
     random_char = get_random_character(list)
@@ -145,14 +146,14 @@ async def getcharacter(ctx, *args):
     while(descriptions is None):
         try:
             # Call the get_character function to retrieve information about the character
-            descriptions, msg = get_character(list, name)
-
+            descriptions  = get_character(list, name)  
+            
             # Send the retrieved information as a reply
-            await ctx.send(f'Information about {name}: {descriptions}. {msg}')
+            await ctx.send(f'Information about {name}: {descriptions} ') 
         except Exception as e:
             print(f'Error retrieving character information: {e}')
             ctx.send('An error occurred while retrieving character information. Try inputting character name again:')
-            descriptions = "Couldnt find character."
+            descriptions = "Couldn't find character."
 
 
 @bot.command(name='powerlvl', aliases=['my power', 'my power level', 'power', 'level'], help="Gives user their power level.")
@@ -175,7 +176,7 @@ async def powerlvl(ctx):
     else:
         return await ctx.send(f'Holy Kami your power level is : {power}, you are strong AF. When you fight planets are prone to explode.')
 
-@bot.command(name='Hello', aliases=['Hi', "Hi korin", "Hello Korin", "hello"], help="Salutes the user.")
+@bot.command(name='Hello', aliases=['Hi', "Hi korin", "Hello Korin", "hello", "hey", "hi", "Hey"], help="Salutes the user.")
 async def hello(ctx):
     await ctx.send("Hello Z-fighter, remember to train to increase your power level. \nThe earth might need your help one day.")
 bot.run(token)

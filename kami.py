@@ -36,14 +36,16 @@ def get_list():
 
 #function for accessing a charcter and info
 def get_character(list, name):
-    name = str(name).title()
+    #name = str(name).title()
     for dict in list:
-        if name == dict['Name']:
+        if name == dict['Name']: 
             name = dict['Name']
-            return dict['Description']
+            description = dict['Description']
+            return description 
     else:
         msg = "Try typing the name differently, for Android eighteen: Android 18"
         description = "Wrong name"
-        return description, msg
+        return description + msg 
+    
 
-print(get_character(list, "Turles"))
+print(get_character(list, "Goku"))
